@@ -354,10 +354,15 @@ module.exports = {
                         Object.assign(modules.config, json);
                         //不同小程序的tabBar数量可能不存在，默认使用list
                         var tabBar = modules.config.tabBar;
-                       //如果存在以buildType+"List"的列表，那么将它改成默认的list
-                        if(tabBar && tabBar[buildType+"List"]){
-                            tabBar.list = tabBar[buildType+"List"];
-                            delete tabBar[buildType+"List"];
+                        //如果存在以buildType+"List"的列表，那么将它改成默认的list
+                        if (tabBar && tabBar[buildType+'List']){
+                            
+                            tabBar.list = tabBar[buildType+'List'];
+                           
+                            ['quick', 'wx', 'bu', 'ali', 'h5', 'tt'].forEach(function(type){
+                                var typeList = type + 'List';
+                                delete tabBar[typeList];
+                            });
                         }
                     } catch (e) {
                         console.log('eval json error', e);
